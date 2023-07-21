@@ -34,13 +34,68 @@ export interface Database {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      Bugs: {
+        Row: {
+          bug_description: string | null
+          bug_name: string | null
+          completed: boolean
+          created_at: string | null
+          id: number
+          team_id: number | null
+          worker_id: string | null
+        }
+        Insert: {
+          bug_description?: string | null
+          bug_name?: string | null
+          completed?: boolean
+          created_at?: string | null
+          id?: number
+          team_id?: number | null
+          worker_id?: string | null
+        }
+        Update: {
+          bug_description?: string | null
+          bug_name?: string | null
+          completed?: boolean
+          created_at?: string | null
+          id?: number
+          team_id?: number | null
+          worker_id?: string | null
+        }
+        Relationships: []
+      }
+      Teams: {
+        Row: {
+          created_at: string | null
+          id: number
+          members: Json[] | null
+          name: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          id?: number
+          members?: Json[] | null
+          name?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          id?: number
+          members?: Json[] | null
+          name?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      get_members_by_id: {
+        Args: {
+          id: number
+        }
+        Returns: string
+      }
     }
     Enums: {
       [_ in never]: never
@@ -158,6 +213,12 @@ export interface Database {
             columns: ["bucket_id"]
             referencedRelation: "buckets"
             referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "objects_owner_fkey"
+            columns: ["owner"]
+            referencedRelation: "users"
+            referencedColumns: ["id"]
           }
         ]
       }
@@ -229,4 +290,3 @@ export interface Database {
     }
   }
 }
-
