@@ -37,28 +37,31 @@ export interface Database {
       Bugs: {
         Row: {
           bug_description: string | null
-          bug_name: string | null
+          bug_name: string
           completed: boolean
           created_at: string | null
           id: number
+          progress: string
           team_id: number | null
           worker_id: string | null
         }
         Insert: {
           bug_description?: string | null
-          bug_name?: string | null
+          bug_name?: string
           completed?: boolean
           created_at?: string | null
           id?: number
+          progress?: string
           team_id?: number | null
           worker_id?: string | null
         }
         Update: {
           bug_description?: string | null
-          bug_name?: string | null
+          bug_name?: string
           completed?: boolean
           created_at?: string | null
           id?: number
+          progress?: string
           team_id?: number | null
           worker_id?: string | null
         }

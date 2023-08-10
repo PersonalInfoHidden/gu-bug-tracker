@@ -21,7 +21,7 @@ export default async function Home() {
 
     return (
         <main>
-            <h1>Hello, {session?.user.email}</h1>
+            <h1>Hello, {session?.user.email?.split("@")[0] ?? "User"}</h1>
             <RealtimeTeams teams={teams ?? []} />
         </main>
     );
