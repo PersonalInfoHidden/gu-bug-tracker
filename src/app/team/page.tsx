@@ -2,9 +2,9 @@ import { Database } from "@/lib/database.types";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
-import Link from "next/link";
+import RealtimeTeams from "./realtime-teams";
 
-export default async function Home() {
+export default async function Team() {
     const supabase = createServerComponentClient<Database>({
         cookies,
     });
@@ -20,13 +20,9 @@ export default async function Home() {
     const { data: teams } = await supabase.from("Teams").select("*");
 
     return (
-        <div>
-            <nav>
-                <Link href={"/team"}>Teams</Link>
-            </nav>
-            <main>
-                <h1>Hello, {session?.user.email?.split("@")[0] ?? "User"}</h1>
-            </main>
-        </div>
+        <main>
+            <h1>Hello, {session?.user.email?.split("@")[0] ?? "User"}</h1>
+            <RealtimeTeams teams={teams ?? []} />
+        </main>
     );
 }
