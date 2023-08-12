@@ -3,6 +3,7 @@ import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 import Link from "next/link";
+import { MainNav } from "./main-nav";
 
 export default async function Home() {
     const supabase = createServerComponentClient<Database>({
@@ -13,16 +14,10 @@ export default async function Home() {
         data: { session },
     } = await supabase.auth.getSession();
 
-    if (!session) {
-        redirect("/unauth");
-    }
-
-    const { data: teams } = await supabase.from("Teams").select("*");
-
     return (
         <div>
             <nav>
-                <Link href={"/team"}>Teams</Link>
+                <MainNav className="" />
             </nav>
             <main>
                 <h1>Hello, {session?.user.email?.split("@")[0] ?? "User"}</h1>
