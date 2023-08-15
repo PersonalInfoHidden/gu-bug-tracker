@@ -25,7 +25,9 @@ export default async function Page({ params }: { params: { id: string } }) {
         <div>
             <h2>Hello {session?.user.email}</h2>
             <h1>Page: {params.id}</h1>
-            <RealtimeBugs bugs={bugs ?? []} />
+            <div className="py-24 px-14">
+                <RealtimeBugs bugs={bugs ?? []} />
+            </div>
             <NewBug teamId={Number(params.id)} />
         </div>
     );

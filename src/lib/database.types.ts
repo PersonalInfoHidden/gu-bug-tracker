@@ -73,18 +73,21 @@ export interface Database {
           id: number
           members: Json[] | null
           name: string | null
+          paid: boolean
         }
         Insert: {
           created_at?: string | null
           id?: number
           members?: Json[] | null
           name?: string | null
+          paid?: boolean
         }
         Update: {
           created_at?: string | null
           id?: number
           members?: Json[] | null
           name?: string | null
+          paid?: boolean
         }
         Relationships: []
       }

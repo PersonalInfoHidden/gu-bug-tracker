@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 import RealtimeTeams from "./realtime-teams";
 import { MainNav } from "../main-nav";
+import AuthNav from "@/components/auth-nav";
 
 export default async function Team() {
     const supabase = createServerComponentClient<Database>({
@@ -22,8 +23,9 @@ export default async function Team() {
 
     return (
         <div>
-            <nav>
+            <nav className="flex justify-between px-12">
                 <MainNav className="" />
+                <AuthNav />
             </nav>
             <main>
                 <h1>Hello, {session?.user.email?.split("@")[0] ?? "User"}</h1>
