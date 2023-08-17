@@ -41,6 +41,7 @@ export interface Database {
           completed: boolean
           created_at: string | null
           id: number
+          priority: string
           progress: string
           team_id: number | null
           worker_id: string | null
@@ -51,6 +52,7 @@ export interface Database {
           completed?: boolean
           created_at?: string | null
           id?: number
+          priority?: string
           progress?: string
           team_id?: number | null
           worker_id?: string | null
@@ -61,6 +63,7 @@ export interface Database {
           completed?: boolean
           created_at?: string | null
           id?: number
+          priority?: string
           progress?: string
           team_id?: number | null
           worker_id?: string | null

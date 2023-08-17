@@ -2,7 +2,7 @@ import { Database } from "@/lib/database.types";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import { MainNav } from "./main-nav";
-import AuthNav from "../components/auth-nav";
+import AuthNav from "./auth-nav";
 import { ModeToggle } from "@/components/mode-toggle";
 
 export default async function Home() {
@@ -17,12 +17,12 @@ export default async function Home() {
     return (
         <div>
             <nav className="flex justify-between px-12">
-                <MainNav className="" />
+                <MainNav prefetch={!!session} />
                 <AuthNav />
             </nav>
             <ModeToggle />
             <main>
-                <h1 className="text-5xl">
+                <h1 className="text-5xl font-semibold">
                     Hello,{" "}
                     <span className=" font-extrabold text-transparent bg-clip-text bg-gradient-to-tr from-primary to-rose-800">
                         {session?.user.email?.split("@")[0] ?? "User"}

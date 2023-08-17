@@ -7,9 +7,10 @@ export async function PUT(request: Request) {
     const { id, progress } = await request.json();
 
     switch (progress) {
-        case "Not Started":
+        case "Todo":
         case "Started":
         case "Completed":
+        case "Canceled":
             const supabase = createRouteHandlerClient<Database>({ cookies });
             const { data } = await supabase
                 .from("Bugs")

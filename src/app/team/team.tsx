@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { Database } from "@/lib/database.types";
 import Link from "next/link";

@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 import RealtimeTeams from "./realtime-teams";
 import { MainNav } from "../main-nav";
-import AuthNav from "@/components/auth-nav";
+import AuthNav from "@/app/auth-nav";
 
 export default async function Team() {
     const supabase = createServerComponentClient<Database>({

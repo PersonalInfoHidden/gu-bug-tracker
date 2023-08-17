@@ -32,7 +32,7 @@ export default function NewBug({ teamId }: { teamId: number }) {
         bug_name: "",
         bug_description: "",
         team_id: teamId,
-        progress: "Not Started",
+        progress: "Todo",
     });
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -45,27 +45,33 @@ export default function NewBug({ teamId }: { teamId: number }) {
     const logBug = async () => {
         console.table(formData);
     };
-    const addBug = async () => {
-        await fetch(`${location.origin}/bugs/new`, {
+    const addBug = async (event: React.FormEvent) => {
+        if (formData.bug_name === "") {
+            event.preventDefault();
+            alert("cool");
+            return;
+        }
+        await fetch(`${location.origin}/api/bugs/new`, {
             method: "POST",
             body: JSON.stringify(formData),
         });
 
         router.refresh();
+        return;
     };
     return (
         <>
             <Dialog>
                 <DialogTrigger asChild>
-                    <Button variant="outline">Edit Profile</Button>
+                    <Button variant="outline">New Bug</Button>
                 </DialogTrigger>
                 <DialogContent className="sm:max-w-[425px] DialogContent">
                     <form onSubmit={addBug}>
                         <DialogHeader>
-                            <DialogTitle>Edit profile</DialogTitle>
+                            <DialogTitle>New Bug</DialogTitle>
                             <DialogDescription>
-                                Make changes to your profile here. Click save
-                                when your done.
+                                Create a bug component here. Click Add when you
+                                are done.
                             </DialogDescription>
                         </DialogHeader>
                         <div className="grid gap-4 py-4">
@@ -114,7 +120,7 @@ export default function NewBug({ teamId }: { teamId: number }) {
                                 </Label>
                                 <div id="progress" className="col-span-3">
                                     <Select
-                                        defaultValue="Not Started"
+                                        defaultValue="Todo"
                                         onValueChange={(value: string) => {
                                             setFormData({
                                                 ...formData,
@@ -123,11 +129,11 @@ export default function NewBug({ teamId }: { teamId: number }) {
                                         }}
                                     >
                                         <SelectTrigger className="col-span-3">
-                                            <SelectValue placeholder="Not Started" />
+                                            <SelectValue placeholder="Todo" />
                                         </SelectTrigger>
                                         <SelectContent>
-                                            <SelectItem value="Not Started">
-                                                Not Started
+                                            <SelectItem value="Todo">
+                                                Todo
                                             </SelectItem>
                                             <SelectItem value="Started">
                                                 Started
@@ -141,10 +147,7 @@ export default function NewBug({ teamId }: { teamId: number }) {
                             </div>
                         </div>
                         <DialogFooter>
-                            <Button type="submit">Save changes</Button>
-                            <Button type="button" onClick={logBug}>
-                                Log Changes
-                            </Button>
+                            <Button type="submit">Add</Button>
                         </DialogFooter>
                     </form>
                 </DialogContent>

@@ -16,6 +16,7 @@ import { cookies } from "next/headers";
 import { Database } from "@/lib/database.types";
 import Link from "next/link";
 
+// The purpose of nav is to navigate between navs that surround the user
 export default async function AuthNav() {
     const supabase = createServerComponentClient<Database>({ cookies });
     const {
@@ -29,7 +30,9 @@ export default async function AuthNav() {
             ) : (
                 <div>
                     <Button>
-                        <Link href={"/signin"}>Sign-In</Link>
+                        <Link href={"/sign-in"} prefetch>
+                            Sign-In
+                        </Link>
                     </Button>
                 </div>
             )}

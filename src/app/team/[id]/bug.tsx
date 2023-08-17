@@ -37,7 +37,7 @@ const ProgressSelect = ({
                 <SelectValue placeholder={value} />
             </SelectTrigger>
             <SelectContent>
-                <SelectItem value="Not Started">Not Started</SelectItem>
+                <SelectItem value="Todo">Todo</SelectItem>
                 <SelectItem value="Started">Started</SelectItem>
                 <SelectItem value="Completed">Completed</SelectItem>
             </SelectContent>
@@ -58,11 +58,15 @@ function Bug({ bug, index }: { bug: Bug; index: number }) {
 
     return (
         <>
-            <TableCell>{index}</TableCell>
-            <TableCell className="font-semibold">{bug.bug_name}</TableCell>
-            <TableCell className="">{bug.bug_description}</TableCell>
-            <TableCell>Is completed: {JSON.stringify(bug.completed)}</TableCell>
-            <TableCell className="flex justify-end">
+            <TableCell className="border-r">{index}</TableCell>
+            <TableCell className="font-semibold border-x">
+                {bug.bug_name}
+            </TableCell>
+            <TableCell className="border-x">{bug.bug_description}</TableCell>
+            <TableCell className="border-x">
+                Is completed: {JSON.stringify(bug.completed)}
+            </TableCell>
+            <TableCell className="flex justify-end border-l">
                 <ProgressSelect
                     value={bug.progress}
                     id={bug.id}

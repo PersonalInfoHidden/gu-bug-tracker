@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import Bug from "./bug";
 import {
@@ -14,11 +16,11 @@ export default function RealtimeBugs({ bugs }: { bugs: Bug[] }) {
             <Table className="">
                 <TableHeader>
                     <TableRow>
-                        <TableHead>id</TableHead>
-                        <TableHead className="w-64">Bug Name</TableHead>
-                        <TableHead>Description</TableHead>
+                        <TableHead className="w-16">id</TableHead>
+                        <TableHead className="w-1/5">Bug Name</TableHead>
+                        <TableHead className="w-96">Description</TableHead>
                         <TableHead>Completed</TableHead>
-                        <TableHead className="text-right">Progress</TableHead>
+                        <TableHead className="text-right ">Progress</TableHead>
                     </TableRow>
                 </TableHeader>
                 <TableBody>
