@@ -11,18 +11,10 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import { cookies } from "next/headers";
-import { Database } from "@/lib/database.types";
 import Link from "next/link";
 
 // The purpose of nav is to navigate between navs that surround the user
-export default async function AuthNav() {
-    const supabase = createServerComponentClient<Database>({ cookies });
-    const {
-        data: { session },
-    } = await supabase.auth.getSession();
-
+export default function AuthNav({ session }: { session: boolean }) {
     return (
         <>
             {session ? (
@@ -87,8 +79,7 @@ function AvatarSelector() {
                     </DropdownMenuGroup>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem>
-                        Log out
-                        <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
+                        <Link href={"/sign-out"}>Log out</Link>
                     </DropdownMenuItem>
                 </DropdownMenuContent>
             </DropdownMenu>

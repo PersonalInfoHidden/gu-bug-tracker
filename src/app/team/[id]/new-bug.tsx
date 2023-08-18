@@ -87,6 +87,7 @@ export default function NewBug({ teamId }: { teamId: number }) {
                                     className="col-span-3"
                                     value={formData.bug_name}
                                     onChange={handleInputChange}
+                                    required
                                 />
                             </div>
                             <div className="grid grid-cols-4 items-center gap-4">

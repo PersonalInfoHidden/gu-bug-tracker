@@ -12,8 +12,8 @@ import {
 
 export default function RealtimeBugs({ bugs }: { bugs: Bug[] }) {
     return (
-        <div>
-            <Table className="">
+        <div className="border rounded-md ">
+            <Table>
                 <TableHeader>
                     <TableRow>
                         <TableHead className="w-16">id</TableHead>
@@ -26,7 +26,7 @@ export default function RealtimeBugs({ bugs }: { bugs: Bug[] }) {
                 <TableBody>
                     {bugs?.map((bug: Bug, index: number) => (
                         <TableRow key={bug.id} className="">
-                            <Bug bug={bug} index={index} />
+                            <Bug bug={bug} index={index + 1} />
                         </TableRow>
                     ))}
                 </TableBody>

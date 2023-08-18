@@ -13,12 +13,13 @@ export default async function Home() {
     const {
         data: { session },
     } = await supabase.auth.getSession();
+    const activeSession = !!(await session);
 
     return (
         <div>
             <nav className="flex justify-between px-12">
-                <MainNav prefetch={!!session} />
-                <AuthNav />
+                <MainNav prefetch={activeSession} />
+                <AuthNav session={activeSession} />
             </nav>
             <ModeToggle />
             <main>
