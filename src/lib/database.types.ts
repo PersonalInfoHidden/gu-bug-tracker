@@ -37,28 +37,34 @@ export interface Database {
       Bugs: {
         Row: {
           bug_description: string | null
-          bug_name: string | null
+          bug_name: string
           completed: boolean
           created_at: string | null
           id: number
+          priority: string
+          progress: string
           team_id: number | null
           worker_id: string | null
         }
         Insert: {
           bug_description?: string | null
-          bug_name?: string | null
+          bug_name?: string
           completed?: boolean
           created_at?: string | null
           id?: number
+          priority?: string
+          progress?: string
           team_id?: number | null
           worker_id?: string | null
         }
         Update: {
           bug_description?: string | null
-          bug_name?: string | null
+          bug_name?: string
           completed?: boolean
           created_at?: string | null
           id?: number
+          priority?: string
+          progress?: string
           team_id?: number | null
           worker_id?: string | null
         }
@@ -70,18 +76,21 @@ export interface Database {
           id: number
           members: Json[] | null
           name: string | null
+          paid: boolean
         }
         Insert: {
           created_at?: string | null
           id?: number
           members?: Json[] | null
           name?: string | null
+          paid?: boolean
         }
         Update: {
           created_at?: string | null
           id?: number
           members?: Json[] | null
           name?: string | null
+          paid?: boolean
         }
         Relationships: []
       }

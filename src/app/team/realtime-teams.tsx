@@ -1,27 +1,24 @@
 "use client";
 
 import React, { useEffect } from "react";
-import Bug from "./bug";
+import Team from "./team";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useRouter } from "next/navigation";
 import { Database } from "@/lib/database.types";
-import BugsTable from "./bugs-table";
 
-const delay = (ms: number) => new Promise((res) => setTimeout(res, ms));
-
-function RealtimeBugs({ bugs }: { bugs: Bug[] }) {
+function RealtimeTeams({ teams }: { teams: Team[] }) {
     const supabase = createClientComponentClient<Database>();
     const router = useRouter();
 
     useEffect(() => {
         const channel = supabase
-            .channel("realtime Bugs")
+            .channel("realtime Teams")
             .on(
                 "postgres_changes",
                 {
                     event: "*",
                     schema: "public",
-                    table: "Bugs",
+                    table: "Teams",
                 },
                 () => {
                     router.refresh();
@@ -35,10 +32,14 @@ function RealtimeBugs({ bugs }: { bugs: Bug[] }) {
     }, [supabase, router]);
 
     return (
-        <div className="border rounded-md ">
-            <BugsTable bugs={bugs} />
+        <div className="grid">
+            {teams?.map((team: Team) => (
+                <div key={team.id} className="flex px-6 py-4">
+                    <Team team={team} />
+                </div>
+            ))}
         </div>
     );
 }
 
-export default RealtimeBugs;
+export default RealtimeTeams;
