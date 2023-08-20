@@ -25,7 +25,7 @@ export default async function Team() {
         <div>
             <nav className="flex justify-between px-12">
                 <MainNav className="" />
-                <AuthNav />
+                <AuthNav session={!!session} />
             </nav>
             <main>
                 <h1>Hello, {session?.user.email?.split("@")[0] ?? "User"}</h1>

@@ -1,36 +1,44 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import Bug from "./bug";
-import {
-    Table,
-    TableBody,
-    TableHead,
-    TableHeader,
-    TableRow,
-} from "@/components/ui/table";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { useRouter } from "next/navigation";
+import { Database } from "@/lib/database.types";
+import BugsTable from "./bugs-table";
 
-export default function RealtimeBugs({ bugs }: { bugs: Bug[] }) {
+const delay = (ms: number) => new Promise((res) => setTimeout(res, ms));
+
+function RealtimeBugs({ bugs }: { bugs: Bug[] }) {
+    const supabase = createClientComponentClient<Database>();
+    const router = useRouter();
+
+    useEffect(() => {
+        const channel = supabase
+            .channel("realtime Bugs")
+            .on(
+                "postgres_changes",
+                {
+                    event: "*",
+                    schema: "public",
+                    table: "Bugs",
+                },
+                () => {
+                    router.refresh();
+                }
+            )
+            .subscribe();
+
+        return () => {
+            supabase.removeChannel(channel);
+        };
+    }, [supabase, router]);
+
     return (
         <div className="border rounded-md ">
-            <Table>
-                <TableHeader>
-                    <TableRow>
-                        <TableHead className="w-16">id</TableHead>
-                        <TableHead className="w-1/5">Bug Name</TableHead>
-                        <TableHead className="w-96">Description</TableHead>
-                        <TableHead>Completed</TableHead>
-                        <TableHead className="text-right ">Progress</TableHead>
-                    </TableRow>
-                </TableHeader>
-                <TableBody>
-                    {bugs?.map((bug: Bug, index: number) => (
-                        <TableRow key={bug.id} className="">
-                            <Bug bug={bug} index={index + 1} />
-                        </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
+            <BugsTable bugs={bugs} />
         </div>
     );
 }
+
+export default RealtimeBugs;

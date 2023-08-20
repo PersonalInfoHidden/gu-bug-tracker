@@ -13,6 +13,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { TableCell } from "@/components/ui/table";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context";
+import { Trash } from "lucide-react";
 type Bug = Database["public"]["Tables"]["Bugs"]["Row"];
 
 const ProgressSelect = ({
@@ -45,11 +46,11 @@ const ProgressSelect = ({
     );
 };
 
-function Bug({ bug, index }: { bug: Bug; index: number }) {
+function Bug({ bug }: { bug: Bug }) {
     const router = useRouter();
 
     const markAsComplete = async () => {
-        await fetch(`${location.origin}/bugs/completed`, {
+        await fetch(`${location.origin}/api/bugs/completed`, {
             method: "put",
             body: JSON.stringify({ id: bug.id }),
         });
@@ -58,20 +59,24 @@ function Bug({ bug, index }: { bug: Bug; index: number }) {
 
     return (
         <>
-            <TableCell className="border-r">{index}</TableCell>
-            <TableCell className="font-semibold border-x">
-                {bug.bug_name}
-            </TableCell>
-            <TableCell className="border-x">{bug.bug_description}</TableCell>
-            <TableCell className="border-x">
+            <TableCell className="font-semibold ">{bug.bug_name}</TableCell>
+            <TableCell className="">{bug.bug_description || ""}</TableCell>
+            <TableCell className="">
+                <Button onClick={markAsComplete}></Button>
                 Is completed: {JSON.stringify(bug.completed)}
             </TableCell>
-            <TableCell className="flex justify-end border-l">
+            <TableCell className="flex justify-end ">
                 <ProgressSelect
                     value={bug.progress}
                     id={bug.id}
                     router={router}
                 />
+            </TableCell>
+            <TableCell>{bug["priority"]}</TableCell>
+            <TableCell>
+                <Button>
+                    <Trash className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all"></Trash>
+                </Button>
             </TableCell>
         </>
     );

@@ -20,7 +20,8 @@ export default async function Page({ params }: { params: { id: string } }) {
     const { data: bugs } = await supabase
         .from("Bugs")
         .select("*")
-        .eq("team_id", Number(params.id));
+        .eq("team_id", Number(params.id))
+        .match({ completed: false });
     return (
         <div>
             <h2>Hello {session?.user.email}</h2>

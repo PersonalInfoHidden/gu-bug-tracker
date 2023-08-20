@@ -13,7 +13,7 @@ export default async function Home() {
     const {
         data: { session },
     } = await supabase.auth.getSession();
-    const activeSession = !!(await session);
+    const activeSession = !!session;
 
     return (
         <div>

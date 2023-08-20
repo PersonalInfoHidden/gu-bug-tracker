@@ -24,7 +24,6 @@ function RealtimeTeams({ teams }: { teams: Team[] }) {
                     router.refresh();
                 }
             )
-
             .subscribe();
 
         return () => {
