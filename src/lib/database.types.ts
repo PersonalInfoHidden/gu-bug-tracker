@@ -37,38 +37,82 @@ export interface Database {
       Bugs: {
         Row: {
           bug_description: string | null
-          bug_name: string
+          bug_name: string | null
           completed: boolean
           created_at: string | null
           id: number
           priority: string
           progress: string
+          tag: Json[] | null
           team_id: number | null
           worker_id: string | null
         }
         Insert: {
           bug_description?: string | null
-          bug_name?: string
+          bug_name?: string | null
           completed?: boolean
           created_at?: string | null
           id?: number
           priority?: string
           progress?: string
+          tag?: Json[] | null
           team_id?: number | null
           worker_id?: string | null
         }
         Update: {
           bug_description?: string | null
-          bug_name?: string
+          bug_name?: string | null
           completed?: boolean
           created_at?: string | null
           id?: number
           priority?: string
           progress?: string
+          tag?: Json[] | null
           team_id?: number | null
           worker_id?: string | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "Bugs_team_id_fkey"
+            columns: ["team_id"]
+            referencedRelation: "Teams"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
+      Profiles: {
+        Row: {
+          avatar_url: string | null
+          full_name: string | null
+          id: string
+          updated_at: string | null
+          username: string | null
+          website: string | null
+        }
+        Insert: {
+          avatar_url?: string | null
+          full_name?: string | null
+          id: string
+          updated_at?: string | null
+          username?: string | null
+          website?: string | null
+        }
+        Update: {
+          avatar_url?: string | null
+          full_name?: string | null
+          id?: string
+          updated_at?: string | null
+          username?: string | null
+          website?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "Profiles_id_fkey"
+            columns: ["id"]
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          }
+        ]
       }
       Teams: {
         Row: {

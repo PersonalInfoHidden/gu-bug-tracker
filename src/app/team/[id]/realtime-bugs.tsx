@@ -36,7 +36,7 @@ function RealtimeBugs({ bugs }: { bugs: Bug[] }) {
 
     return (
         <div className="border rounded-md ">
-            <BugsTable bugs={bugs} />
+            {bugs ? <BugsTable bugs={bugs} /> : <h2>error</h2>}
         </div>
     );
 }

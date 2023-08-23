@@ -72,8 +72,10 @@ function AvatarSelector() {
                             <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
                         </DropdownMenuItem>
                         <DropdownMenuItem>
-                            Settings
-                            <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
+                            <Link href={"/account"} prefetch>
+                                Settings
+                                <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
+                            </Link>
                         </DropdownMenuItem>
                         <DropdownMenuItem>New Team</DropdownMenuItem>
                     </DropdownMenuGroup>

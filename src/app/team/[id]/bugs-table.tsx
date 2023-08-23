@@ -18,7 +18,6 @@ function BugsTable({ bugs }: { bugs: Bug[] }) {
                     <TableRow>
                         <TableHead className="w-1/5">Bug Name</TableHead>
                         <TableHead className="w-96">Description</TableHead>
-                        <TableHead>Completed</TableHead>
                         <TableHead className=" ">Progress</TableHead>
                         <TableHead>Priority</TableHead>
                         <TableHead />

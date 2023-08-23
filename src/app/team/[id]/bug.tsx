@@ -13,7 +13,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { TableCell } from "@/components/ui/table";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context";
-import { Trash } from "lucide-react";
+import { Check, Trash } from "lucide-react";
 type Bug = Database["public"]["Tables"]["Bugs"]["Row"];
 
 const ProgressSelect = ({
@@ -61,11 +61,7 @@ function Bug({ bug }: { bug: Bug }) {
         <>
             <TableCell className="font-semibold ">{bug.bug_name}</TableCell>
             <TableCell className="">{bug.bug_description || ""}</TableCell>
-            <TableCell className="">
-                <Button onClick={markAsComplete}></Button>
-                Is completed: {JSON.stringify(bug.completed)}
-            </TableCell>
-            <TableCell className="flex justify-end ">
+            <TableCell className="flex">
                 <ProgressSelect
                     value={bug.progress}
                     id={bug.id}
@@ -74,9 +70,14 @@ function Bug({ bug }: { bug: Bug }) {
             </TableCell>
             <TableCell>{bug["priority"]}</TableCell>
             <TableCell>
-                <Button>
-                    <Trash className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all"></Trash>
-                </Button>
+                <div className="grid grid-flow-col">
+                    <Button variant={"outline"}>
+                        <Trash className="h-[1.5rem] w-[1.5rem] rotate-0 scale-100 transition-all" />
+                    </Button>
+                    <Button onClick={markAsComplete} variant={"default"}>
+                        <Check className="h-[1.5rem] w-[1.5rem] rotate-0 scale-100 transition-all" />
+                    </Button>
+                </div>
             </TableCell>
         </>
     );
