@@ -116,7 +116,7 @@ export default function NewBug({ teamId }: { teamId: number }) {
                             <Input
                                 id="bug_name"
                                 className="col-span-3"
-                                value={formData.bug_name}
+                                value={formData?.bug_name || ""}
                                 onChange={handleInputChange}
                                 required
                             />

@@ -7,8 +7,8 @@
         "build": "next build",
         "start": "next start",
         "lint": "next lint",
-        "sup-start": "supabase start",
-        "gen-types": "supabase gen types typescript --linked > src/lib/database.types.ts"
+        "gen-types": "supabase gen types typescript --linked > src/lib/database.types.ts",
+        "s-gen-s": "supabase start && supabase gen types typescript --linked > src/lib/database.types.ts && supabase stop"
     },
     "dependencies": {
         "@radix-ui/react-avatar": "^1.0.3",

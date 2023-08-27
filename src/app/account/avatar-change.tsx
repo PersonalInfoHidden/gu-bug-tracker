@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Database } from "@/lib/database.types";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import Image from "next/image";
-type Profiles = Database["public"]["Tables"]["Profiles"]["Row"];
+type Profiles = Database["public"]["Tables"]["profiles"]["Row"];
 
 export default function AvatarChange({
     uid,

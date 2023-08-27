@@ -13,7 +13,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { TableCell } from "@/components/ui/table";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context";
-import { Check, Trash } from "lucide-react";
+import { FolderDown, Trash } from "lucide-react";
 type Bug = Database["public"]["Tables"]["Bugs"]["Row"];
 
 const ProgressSelect = ({
@@ -40,7 +40,7 @@ const ProgressSelect = ({
             <SelectContent>
                 <SelectItem value="Todo">Todo</SelectItem>
                 <SelectItem value="Started">Started</SelectItem>
-                <SelectItem value="Completed">Completed</SelectItem>
+                <SelectItem value="Done">Done</SelectItem>
             </SelectContent>
         </Select>
     );
@@ -49,7 +49,7 @@ const ProgressSelect = ({
 function Bug({ bug }: { bug: Bug }) {
     const router = useRouter();
 
-    const markAsComplete = async () => {
+    const markAsArchived = async () => {
         await fetch(`${location.origin}/api/bugs/completed`, {
             method: "put",
             body: JSON.stringify({ id: bug.id }),
@@ -74,8 +74,8 @@ function Bug({ bug }: { bug: Bug }) {
                     <Button variant={"outline"}>
                         <Trash className="h-[1.5rem] w-[1.5rem] rotate-0 scale-100 transition-all" />
                     </Button>
-                    <Button onClick={markAsComplete} variant={"default"}>
-                        <Check className="h-[1.5rem] w-[1.5rem] rotate-0 scale-100 transition-all" />
+                    <Button onClick={markAsArchived} variant={"default"}>
+                        <FolderDown className="h-[1.5rem] w-[1.5rem] rotate-0 scale-100 transition-all" />
                     </Button>
                 </div>
             </TableCell>

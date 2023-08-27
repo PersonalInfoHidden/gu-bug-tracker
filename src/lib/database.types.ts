@@ -38,7 +38,6 @@ export interface Database {
         Row: {
           bug_description: string | null
           bug_name: string | null
-          completed: boolean
           created_at: string | null
           id: number
           priority: string
@@ -50,7 +49,6 @@ export interface Database {
         Insert: {
           bug_description?: string | null
           bug_name?: string | null
-          completed?: boolean
           created_at?: string | null
           id?: number
           priority?: string
@@ -62,7 +60,6 @@ export interface Database {
         Update: {
           bug_description?: string | null
           bug_name?: string | null
-          completed?: boolean
           created_at?: string | null
           id?: number
           priority?: string
@@ -80,7 +77,7 @@ export interface Database {
           }
         ]
       }
-      Profiles: {
+      profiles: {
         Row: {
           avatar_url: string | null
           full_name: string | null
@@ -107,7 +104,7 @@ export interface Database {
         }
         Relationships: [
           {
-            foreignKeyName: "Profiles_id_fkey"
+            foreignKeyName: "profiles_id_fkey"
             columns: ["id"]
             referencedRelation: "users"
             referencedColumns: ["id"]

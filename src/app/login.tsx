@@ -13,21 +13,26 @@ export default function Login() {
     const supabase = createClientComponentClient<Database>();
 
     const handleSignUp = async () => {
-        await supabase.auth.signUp({
-            email: "dodojop428@niback.com",
-            password: "dodojop428",
+        const { error } = await supabase.auth.signUp({
+            email: "memew46549@xgh6.com",
+            password: "memew46549",
             options: {
                 emailRedirectTo: `${location.origin}/auth/callback`,
+                // data: {
+                //     username: "blabla",
+                // },
             },
         });
+        alert(JSON.stringify(error));
         router.refresh();
     };
 
     const handleSignIn = async () => {
-        await supabase.auth.signInWithPassword({
+        const { error } = await supabase.auth.signInWithPassword({
             email: "dodojop428@niback.com",
             password: "dodojop428",
         });
+        alert(JSON.stringify(error));
         router.refresh();
     };
 
