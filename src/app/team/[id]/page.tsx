@@ -21,7 +21,8 @@ export default async function Page({ params }: { params: { id: string } }) {
         .from("Bugs")
         .select("*")
         .eq("team_id", Number(params.id))
-        .match({ completed: false });
+        .not("progress", "like", "Archived");
+
     return (
         <div>
             <h2>Hello {session?.user.email}</h2>
