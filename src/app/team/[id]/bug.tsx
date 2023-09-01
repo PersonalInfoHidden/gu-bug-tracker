@@ -13,11 +13,12 @@ import {
 import { Button } from "@/components/ui/button";
 import { TableCell } from "@/components/ui/table";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context";
-import { FolderDown, Trash } from "lucide-react";
+import { Check, FolderDown, Trash, X } from "lucide-react";
 import {
     DropdownMenu,
     DropdownMenuCheckboxItem,
     DropdownMenuContent,
+    DropdownMenuGroup,
     DropdownMenuItem,
     DropdownMenuLabel,
     DropdownMenuSeparator,
@@ -50,30 +51,48 @@ const Bug = ({ bug }: { bug: Bug }) => {
             <TableCell>{bug["priority"]}</TableCell>
             <TableCell>
                 <div className="grid grid-flow-col">
-                    <ConfirmDropdown>
+                    <ConfirmDropdown question="Delete?">
                         <Button variant={"outline"}>
                             <Trash className="h-[1.5rem] w-[1.5rem] rotate-0 scale-100 transition-all" />
                         </Button>
                     </ConfirmDropdown>
-                    <Button onClick={markAsArchived} variant={"default"}>
-                        <FolderDown className="h-[1.5rem] w-[1.5rem] rotate-0 scale-100 transition-all" />
-                    </Button>
+                    <ConfirmDropdown question="Archive?">
+                        <Button onClick={markAsArchived} variant={"default"}>
+                            <FolderDown className="h-[1.5rem] w-[1.5rem] rotate-0 scale-100 transition-all" />
+                        </Button>
+                    </ConfirmDropdown>
                 </div>
             </TableCell>
         </>
     );
 };
 
-function ConfirmDropdown({ children }: { children?: React.ReactNode }) {
+function ConfirmDropdown({
+    children,
+    question,
+    confirmEffect,
+}: {
+    children?: React.ReactNode;
+    question?: string;
+    confirmEffect?: any;
+}) {
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>{children}</DropdownMenuTrigger>
             <DropdownMenuContent className="w-40">
-                <DropdownMenuLabel>Deltete?</DropdownMenuLabel>
+                <DropdownMenuLabel>{question || "Confirm?"}</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem className="bg-card focus:bg-primary">
-                    Confirm
-                </DropdownMenuItem>
+                <DropdownMenuGroup className="grid grid-flow-col">
+                    <DropdownMenuItem
+                        className="bg-primary focus:bg-primary/80"
+                        onClick={confirmEffect}
+                    >
+                        <Check />
+                    </DropdownMenuItem>
+                    <DropdownMenuItem className="bg-card focus:opacity-95 text-center">
+                        <X />
+                    </DropdownMenuItem>
+                </DropdownMenuGroup>
             </DropdownMenuContent>
         </DropdownMenu>
     );
