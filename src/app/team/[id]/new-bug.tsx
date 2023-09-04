@@ -203,6 +203,10 @@ export default function NewBug({ teamId }: { teamId: number }) {
                                 </Select>
                             </div>
                         </div>
+                        <div className="grid grid-cols-4 items-center gap-4">
+                            <Label />
+                            <Input className="col-span-3"></Input>
+                        </div>
                     </div>
                     <DialogFooter>
                         <DialogTrigger asChild>

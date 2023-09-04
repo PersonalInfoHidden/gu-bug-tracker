@@ -15,12 +15,12 @@ function BugsTable({ bugs }: { bugs: Bug[] }) {
         <>
             <Table>
                 <TableHeader>
-                    <TableRow>
+                    <TableRow className="">
                         <TableHead className="w-1/5">Bug Name</TableHead>
-                        <TableHead className="w-96">Description</TableHead>
-                        <TableHead className=" ">Progress</TableHead>
+                        <TableHead className="w-2/5">Description</TableHead>
+                        <TableHead className="">Progress</TableHead>
                         <TableHead>Priority</TableHead>
-                        <TableHead />
+                        <TableHead className="text-center">Actions</TableHead>
                     </TableRow>
                 </TableHeader>
                 <TableBody>
