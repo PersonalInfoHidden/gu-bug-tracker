@@ -6,7 +6,7 @@ import {
     DropdownMenuSeparator,
     DropdownMenuGroup,
     DropdownMenuItem,
-} from "@radix-ui/react-dropdown-menu";
+} from "@/components/ui/dropdown-menu";
 import { Check, X } from "lucide-react";
 
 export default function ConfirmDropdown({
@@ -21,17 +21,19 @@ export default function ConfirmDropdown({
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>{children}</DropdownMenuTrigger>
-            <DropdownMenuContent className="w-40">
-                <DropdownMenuLabel>{question || "Confirm?"}</DropdownMenuLabel>
+            <DropdownMenuContent className="">
+                <DropdownMenuLabel className="">
+                    {question || "Confirm?"}
+                </DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuGroup className="grid grid-flow-col">
                     <DropdownMenuItem
-                        className="bg-primary text-primary-foreground focus:bg-primary/80 focus:text-primary-foreground grid place-items-center"
+                        className="grid bg-primary text-primary-foreground focus:bg-primary/80 focus:text-primary-foreground place-items-center"
                         onClick={confirmEffect}
                     >
                         <Check />
                     </DropdownMenuItem>
-                    <DropdownMenuItem className="text-center grid place-items-center">
+                    <DropdownMenuItem className="grid text-center place-items-center">
                         <X />
                     </DropdownMenuItem>
                 </DropdownMenuGroup>

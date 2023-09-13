@@ -9,7 +9,7 @@ export async function PUT(request: Request) {
     const supabase = createRouteHandlerClient<Database>({ cookies });
     const { data } = await supabase
         .from("Bugs")
-        .update({ completed: true })
+        .update({ progress: "Archived" })
         .match({ id });
     return NextResponse.json(data);
 }

@@ -20,7 +20,7 @@ const Bug = ({ bug }: { bug: Bug }) => {
     const router = useRouter();
 
     const markAsArchived = async () => {
-        await fetch(`${location.origin}/api/bugs/completed`, {
+        await fetch(`${location.origin}/api/bugs/archived`, {
             method: "put",
             body: JSON.stringify({ id: bug.id }),
         });

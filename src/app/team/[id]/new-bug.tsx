@@ -109,7 +109,7 @@ export default function NewBug({ teamId }: { teamId: number }) {
                         </DialogDescription>
                     </DialogHeader>
                     <div className="grid gap-4 py-4">
-                        <div className="grid grid-cols-4 items-center gap-4">
+                        <div className="grid items-center grid-cols-4 gap-4">
                             <Label htmlFor="bug_name" className="text-right">
                                 Name
                             </Label>
@@ -121,7 +121,7 @@ export default function NewBug({ teamId }: { teamId: number }) {
                                 required
                             />
                         </div>
-                        <div className="grid grid-cols-4 items-center gap-4">
+                        <div className="grid items-center grid-cols-4 gap-4">
                             <Label
                                 htmlFor="bug_description"
                                 className="text-right"
@@ -143,7 +143,7 @@ export default function NewBug({ teamId }: { teamId: number }) {
                                 }}
                             />
                         </div>
-                        <div className="grid grid-cols-4 items-center gap-4">
+                        <div className="grid items-center grid-cols-4 gap-4">
                             <Label htmlFor="progress" className="text-right">
                                 Progress
                             </Label>
@@ -174,7 +174,7 @@ export default function NewBug({ teamId }: { teamId: number }) {
                                 </Select>
                             </div>
                         </div>
-                        <div className="grid grid-cols-4 items-center gap-4">
+                        <div className="grid items-center grid-cols-4 gap-4">
                             <Label htmlFor="priority" className="text-right">
                                 Priority
                             </Label>
@@ -203,9 +203,11 @@ export default function NewBug({ teamId }: { teamId: number }) {
                                 </Select>
                             </div>
                         </div>
-                        <div className="grid grid-cols-4 items-center gap-4">
-                            <Label />
-                            <Input className="col-span-3"></Input>
+                        <div className="grid items-center grid-cols-4 gap-4">
+                            <Label htmlFor="tag" className="text-right">
+                                Tag
+                            </Label>
+                            <Input className="col-span-3" id="tag"></Input>
                         </div>
                     </div>
                     <DialogFooter>
