@@ -114,6 +114,7 @@ export default function NewBug({ teamId }: { teamId: number }) {
                                 Name
                             </Label>
                             <Input
+                                placeholder="Error in Dark-Mode docs"
                                 id="bug_name"
                                 className="col-span-3"
                                 value={formData?.bug_name || ""}
@@ -207,7 +208,20 @@ export default function NewBug({ teamId }: { teamId: number }) {
                             <Label htmlFor="tag" className="text-right">
                                 Tag
                             </Label>
-                            <Input className="col-span-3" id="tag"></Input>
+                            <Input
+                                className="col-span-3"
+                                id="tag"
+                                placeholder="ui,docs"
+                                onChange={(
+                                    event: React.ChangeEvent<HTMLInputElement>
+                                ) => {
+                                    const { id, value } = event.target;
+                                    setFormData({
+                                        ...formData,
+                                        [id]: value.split(","),
+                                    });
+                                }}
+                            />
                         </div>
                     </div>
                     <DialogFooter>

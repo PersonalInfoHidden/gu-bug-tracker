@@ -20,7 +20,7 @@ const Bug = ({ bug }: { bug: Bug }) => {
     const router = useRouter();
 
     const markAsArchived = async () => {
-        await fetch(`${location.origin}/api/bugs/archived`, {
+        await fetch(`${location.origin}/api/bugs/archive`, {
             method: "put",
             body: JSON.stringify({ id: bug.id }),
         });
@@ -46,8 +46,11 @@ const Bug = ({ bug }: { bug: Bug }) => {
                             <Trash className="h-[1.5rem] w-[1.5rem] rotate-0 scale-100 transition-all" />
                         </Button>
                     </ConfirmDropdown>
-                    <ConfirmDropdown question="Archive?">
-                        <Button onClick={markAsArchived} variant={"default"}>
+                    <ConfirmDropdown
+                        question="Archive?"
+                        confirmEffect={markAsArchived}
+                    >
+                        <Button variant={"default"}>
                             <FolderDown className="h-[1.5rem] w-[1.5rem] rotate-0 scale-100 transition-all" />
                         </Button>
                     </ConfirmDropdown>
