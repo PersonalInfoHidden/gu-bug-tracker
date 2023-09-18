@@ -5,6 +5,7 @@ import { Database } from "@/lib/database.types";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import NewBug from "./new-bug";
+import ArchivedBugs from "./archived-bugs";
 
 export default async function Page({ params }: { params: { id: string } }) {
     const supabase = createServerComponentClient<Database>({ cookies });
@@ -31,6 +32,7 @@ export default async function Page({ params }: { params: { id: string } }) {
                 <RealtimeBugs bugs={bugs ?? []} />
             </div>
             <NewBug teamId={Number(params.id)} />
+            <ArchivedBugs />
         </div>
     );
 }
