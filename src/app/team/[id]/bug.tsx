@@ -9,11 +9,22 @@ import {
     ArrowDown,
     ArrowRight,
     ArrowUp,
+    FolderArchive,
     FolderDown,
     Trash,
 } from "lucide-react";
 import ProgressSelect from "./progress-select";
-import ConfirmDropdown from "./confirm-dropdown";
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+    AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 type Bug = Database["public"]["Tables"]["Bugs"]["Row"];
 
 const Bug = ({ bug }: { bug: Bug }) => {
@@ -27,6 +38,15 @@ const Bug = ({ bug }: { bug: Bug }) => {
         router.refresh();
     };
 
+    const changeProgress = async (progress: string) => {
+        await fetch(`${location.origin}/api/bugs/progress`, {
+            method: "put",
+            body: JSON.stringify({ progress, id: bug.id }),
+        });
+        console.log(progress);
+        router.refresh();
+    };
+
     return (
         <>
             <TableCell className="font-semibold ">{bug.bug_name}</TableCell>
@@ -34,33 +54,34 @@ const Bug = ({ bug }: { bug: Bug }) => {
             <TableCell className="flex">
                 <ProgressSelect
                     value={bug.progress}
-                    id={bug.id}
-                    router={router}
+                    selectEffect={changeProgress}
                 />
             </TableCell>
-            <TableCell>{bug["priority"]}</TableCell>
+            <TableCell>
+                <div>
+                    {GetPriority({ priority: bug.priority })}
+                    {bug.priority}
+                </div>
+            </TableCell>
             <TableCell>
                 <div className="grid grid-flow-col">
-                    <ConfirmDropdown question="Delete?">
-                        <Button variant={"outline"}>
-                            <Trash className="h-[1.5rem] w-[1.5rem] rotate-0 scale-100 transition-all" />
+                    <TableAction>
+                        <Button>
+                            <Trash />
                         </Button>
-                    </ConfirmDropdown>
-                    <ConfirmDropdown
-                        question="Archive?"
-                        confirmEffect={markAsArchived}
-                    >
-                        <Button variant={"default"}>
-                            <FolderDown className="h-[1.5rem] w-[1.5rem] rotate-0 scale-100 transition-all" />
+                    </TableAction>
+                    <TableAction confirmAction={markAsArchived}>
+                        <Button variant="ghost">
+                            <FolderArchive />
                         </Button>
-                    </ConfirmDropdown>
+                    </TableAction>
                 </div>
             </TableCell>
         </>
     );
 };
 
-function GetPriority({ priority }: { priority?: "Low" | "Medium" | "High" }) {
+function GetPriority({ priority }: { priority?: string }) {
     const iconStyle = "";
     switch (priority) {
         case "Low":
@@ -72,6 +93,53 @@ function GetPriority({ priority }: { priority?: "Low" | "Medium" | "High" }) {
         default:
             return <div>?</div>;
     }
+}
+
+function TableAction({
+    title,
+    desctiption,
+    cancelName,
+    actionName,
+    confirmAction,
+    children,
+}: {
+    title?: string;
+    desctiption?: string;
+    cancelName?: string;
+    actionName?: string;
+    confirmAction?: () => void;
+    children?: React.ReactNode;
+}) {
+    return (
+        <AlertDialog>
+            {children ? (
+                <AlertDialogTrigger asChild>{children}</AlertDialogTrigger>
+            ) : (
+                <AlertDialogTrigger>Open</AlertDialogTrigger>
+            )}
+            <AlertDialogContent>
+                <AlertDialogHeader>
+                    <AlertDialogTitle>
+                        {title || "Are you absolutely sure?"}
+                    </AlertDialogTitle>
+                    <AlertDialogDescription>
+                        {desctiption ||
+                            `This action cannot be undone. This will permanently
+                        delete your account and remove your data from our
+                        servers.`}
+                    </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                    <AlertDialogCancel>
+                        {cancelName || `Cancel`}
+                    </AlertDialogCancel>
+                    <AlertDialogAction onClick={confirmAction}>
+                        {actionName || `Continue`}
+                    </AlertDialogAction>
+                </AlertDialogFooter>
+            </AlertDialogContent>
+        </AlertDialog>
+    );
 }
 
 export default Bug;

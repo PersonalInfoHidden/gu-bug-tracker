@@ -19,7 +19,11 @@ export default async function Team() {
         redirect("/unauth");
     }
 
-    const { data: teams } = await supabase.from("Teams").select("*");
+    const { data: teams } = await supabase
+        .from("Teams")
+        .select("*")
+        .order("id", { ascending: true })
+        .limit(30);
 
     return (
         <div>
