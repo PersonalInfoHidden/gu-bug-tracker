@@ -43,13 +43,22 @@ const Bug = ({ bug }: { bug: Bug }) => {
             method: "put",
             body: JSON.stringify({ progress, id: bug.id }),
         });
-        console.log(progress);
+        router.refresh();
+    };
+
+    const deleteBug = async () => {
+        await fetch(`${location.origin}/api/bugs/delete`, {
+            method: "delete",
+            body: JSON.stringify({ id: bug.id }),
+        });
         router.refresh();
     };
 
     return (
         <>
-            <TableCell className="font-semibold ">{bug.bug_name}</TableCell>
+            <TableCell className="text-lg font-semibold">
+                {bug.bug_name}
+            </TableCell>
             <TableCell className="">{bug.bug_description || ""}</TableCell>
             <TableCell className="flex">
                 <ProgressSelect
@@ -58,20 +67,21 @@ const Bug = ({ bug }: { bug: Bug }) => {
                 />
             </TableCell>
             <TableCell>
-                <div>
+                <div className="flex items-center font-bold capitalize gap-x-2">
                     {GetPriority({ priority: bug.priority })}
-                    {bug.priority}
+                    <span>{bug.priority}</span>
                 </div>
             </TableCell>
             <TableCell>
-                <div className="grid grid-flow-col">
-                    <TableAction>
+                <div className="grid grid-flow-col gap-x-2">
+                    <TableAction confirmAction={deleteBug}>
                         <Button>
                             <Trash />
                         </Button>
                     </TableAction>
+
                     <TableAction confirmAction={markAsArchived}>
-                        <Button variant="ghost">
+                        <Button variant="outline">
                             <FolderArchive />
                         </Button>
                     </TableAction>
@@ -82,7 +92,7 @@ const Bug = ({ bug }: { bug: Bug }) => {
 };
 
 function GetPriority({ priority }: { priority?: string }) {
-    const iconStyle = "";
+    const iconStyle = "font-bold";
     switch (priority) {
         case "Low":
             return <ArrowDown className={iconStyle} />;
