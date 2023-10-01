@@ -32,7 +32,7 @@ export default async function Page({ params }: { params: { id: string } }) {
                 <RealtimeBugs bugs={bugs ?? []} />
             </div>
             <NewBug teamId={Number(params.id)} />
-            <ArchivedBugs />
+            <ArchivedBugs id={Number(params.id)} />
         </div>
     );
 }
