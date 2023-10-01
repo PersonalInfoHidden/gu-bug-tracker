@@ -4,28 +4,18 @@ import {
     SelectValue,
     SelectContent,
     SelectItem,
-} from "@radix-ui/react-select";
-import { AppRouterInstance } from "next/dist/shared/lib/app-router-context";
+} from "@/components/ui/select";
 import Bug from "./bug";
 
 export default function ProgressSelect({
     value,
-    id,
-    router,
+    selectEffect,
 }: {
     value: Bug["progress"];
-    id: Bug["id"];
-    router: AppRouterInstance;
+    selectEffect?: any;
 }) {
-    const changeProgress = async (progress: string) => {
-        await fetch(`${location.origin}/bugs/progress`, {
-            method: "put",
-            body: JSON.stringify({ progress, id: id }),
-        });
-        router.refresh();
-    };
     return (
-        <Select onValueChange={changeProgress}>
+        <Select onValueChange={selectEffect}>
             <SelectTrigger className="w-[180px]">
                 <SelectValue placeholder={value} />
             </SelectTrigger>
